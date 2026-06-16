@@ -10,7 +10,7 @@ export function generateAttendanceReport(data = {}, date) {
     { key: 'Half day leave', emoji: '🕒' },
     { key: 'On Duty', emoji: '🛠️' },
     { key: 'Outdoor Station', emoji: '🌲' },
-    { key: 'LYAM', emoji: '📌' },
+    { key: 'LAYAM', emoji: '📌' },
   ];
 
   const lines = [];
@@ -23,7 +23,10 @@ export function generateAttendanceReport(data = {}, date) {
 
   categories.forEach((category) => {
     const names = Object.entries(data)
-      .filter(([, info]) => info.status === category.key)
+      .filter(([, info]) => {
+        const s = info && info.status === 'LYAM' ? 'LAYAM' : info?.status;
+        return s === category.key;
+      })
       .map(([name]) => name)
       .sort((a, b) => a.localeCompare(b));
 

@@ -15,7 +15,7 @@ const statusOptions = [
   { key: 'Half day leave', label: 'Half day leave', color: 'purple' },
   { key: 'On Duty', label: 'On Duty', color: 'cyan' },
   { key: 'Outdoor Station', label: 'Outdoor Station', color: 'teal' },
-  { key: 'LYAM', label: 'LYAM', color: 'gray' },
+  { key: 'LAYAM', label: 'LAYAM', color: 'gray' },
 ];
 
 function AttendancePage() {
@@ -33,7 +33,12 @@ function AttendancePage() {
     }
 
     const unsubscribe = subscribeAttendance((data) => {
-      setAttendanceData(data);
+      const normalized = {};
+      Object.entries(data || {}).forEach(([name, info]) => {
+        const status = info && info.status === 'LYAM' ? 'LAYAM' : info?.status;
+        normalized[name] = { ...info, status };
+      });
+      setAttendanceData(normalized);
     });
     return () => unsubscribe();
   }, [navigate, selectedEmployee]);

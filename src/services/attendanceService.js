@@ -15,6 +15,9 @@ export async function updateAttendance(userName, status) {
 
   if (!userName || !status) return;
 
+  // Normalize legacy status value if present
+  const normalizedStatus = status === 'LYAM' ? 'LAYAM' : status;
+
   const attendanceDoc = getAttendanceDoc();
 
   try {
@@ -24,7 +27,7 @@ export async function updateAttendance(userName, status) {
       {
         users: {
           [userName]: {
-            status: status,
+            status: normalizedStatus,
             updatedAt: Date.now(),
           },
         },

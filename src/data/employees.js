@@ -1,27 +1,3 @@
-export const employees = [
-  'Gavarna Aravind Naidu',
-  'Antony jackson',
-  'Arvind Nair',
-  'Vaishnavi',
-  'Lepika',
-  'Elina',
-  'Manisha',
-  'Dhanya',
-  'Bheema',
-  'Lakshmana Prabhu',
-  'Dino',
-  'Anubhav',
-  'Perala',
-  'Balvant',
-  'Oza Nirav Himanshu',
-  'Manikandhan',
-  'Shekar Paul',
-  'Nandhini',
-  'Ramamoorthy',
-  'Sangavi',
-  'Sankar',
-  'Sunilkumar',
-  'Satheesh',
-  'Arun',
-  'Abin Joji',
-];
+import employeesJson from '../../employees.json';
+
+export const employees = (employeesJson && employeesJson.employees) || [];

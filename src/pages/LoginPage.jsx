@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { employees } from '../data/employees.js';
+import { employees as employeesFallback } from '../data/employees.js';
+import { APP_VERSION } from '../config.js';
 
 function LoginPage() {
   const navigate = useNavigate();
   const [selectedEmployee, setSelectedEmployee] = useState('');
   const [error, setError] = useState('');
+  const [employeeList, setEmployeeList] = useState(employeesFallback || []);
 
   useEffect(() => {
     const savedEmployee = localStorage.getItem('selectedEmployee');
@@ -13,6 +15,23 @@ function LoginPage() {
       navigate('/attendance', { replace: true });
     }
   }, [navigate]);
+
+  // Attempt to fetch a fresh employee list from the server to avoid bundle caching.
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch('/employees.json', { cache: 'no-store' });
+        if (res.ok) {
+          const json = await res.json();
+          if (json && Array.isArray(json.employees) && json.employees.length > 0) {
+            setEmployeeList(json.employees);
+          }
+        }
+      } catch (e) {
+        // ignore fetch errors and continue using fallback
+      }
+    })();
+  }, []);
 
   const handleContinue = (event) => {
     event.preventDefault();
@@ -43,7 +62,7 @@ function LoginPage() {
               autoFocus
             >
               <option value="">Select your name</option>
-              {employees.map((employee) => (
+              {employeeList.map((employee) => (
                 <option key={employee} value={employee}>
                   {employee}
                 </option>
@@ -56,6 +75,7 @@ function LoginPage() {
           </button>
         </form>
       </div>
+    
     </div>
   );
 }
