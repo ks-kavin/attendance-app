@@ -8,6 +8,9 @@ export function generateAttendanceReport(data = {}, date) {
     { key: 'On leave', emoji: '🙋' },
     { key: 'Sick leave', emoji: '😷' },
     { key: 'Half day leave', emoji: '🕒' },
+    { key: 'On Duty', emoji: '🛠️' },
+    { key: 'Outdoor Station', emoji: '🌲' },
+    { key: 'LYAM', emoji: '📌' },
   ];
 
   const lines = [];
@@ -39,6 +42,10 @@ export function generateAttendanceReport(data = {}, date) {
     .filter((employee) => !submittedNames.has(employee))
     .sort((a, b) => a.localeCompare(b));
 
+  const totalEmployees = employees.length;
+  const submittedCount = submittedNames.size;
+  const pendingCount = notSubmitted.length;
+
   lines.push('--------------------------------');
   lines.push('');
   lines.push(`⚠️ Attendance Not Submitted - ${notSubmitted.length}`);
@@ -47,6 +54,10 @@ export function generateAttendanceReport(data = {}, date) {
     notSubmitted.forEach((name) => lines.push(name));
     lines.push('');
   }
+  lines.push('');
+  lines.push(`Total Employees: ${totalEmployees}`);
+  lines.push(`Attendance Submitted: ${submittedCount}`);
+  lines.push(`Attendance Pending: ${pendingCount}`);
   lines.push('--------------------------------');
 
   return lines.join('\n').trim();

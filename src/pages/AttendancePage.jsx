@@ -13,6 +13,9 @@ const statusOptions = [
   { key: 'On leave', label: 'On leave', color: 'orange' },
   { key: 'Sick leave', label: 'Sick leave', color: 'red' },
   { key: 'Half day leave', label: 'Half day leave', color: 'purple' },
+  { key: 'On Duty', label: 'On Duty', color: 'cyan' },
+  { key: 'Outdoor Station', label: 'Outdoor Station', color: 'teal' },
+  { key: 'LYAM', label: 'LYAM', color: 'gray' },
 ];
 
 function AttendancePage() {

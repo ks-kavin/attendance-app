@@ -1,9 +1,9 @@
 export const employees = [
-  'Gavarna Arvind Naidu',
+  'Gavarna Aravind Naidu',
   'Antony jackson',
   'Arvind Nair',
   'Vaishnavi',
-  'Lipika',
+  'Lepika',
   'Elina',
   'Manisha',
   'Dhanya',
@@ -22,4 +22,6 @@ export const employees = [
   'Sankar',
   'Sunilkumar',
   'Satheesh',
+  'Arun',
+  'Abin Joji',
 ];
